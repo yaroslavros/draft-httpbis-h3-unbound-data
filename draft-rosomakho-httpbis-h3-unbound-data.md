@@ -10,18 +10,18 @@ date:
 consensus: true
 v: 3
 area: "Web and Internet Transport"
-workgroup: HTTP
+workgroup: "HTTP"
 keyword:
  - http
  - data
  - unbound
 venue:
-  group: HTTP
-  type: Working Group
-  mail: ietf-http-wg@w3.org
+  group: "HTTP"
+  type: "Working Group"
+  mail: "ietf-http-wg@w3.org"
   arch: "https://lists.w3.org/Archives/Public/ietf-http-wg/"
-  github: yaroslavros/draft-httpbis-h3-unbound-data
-  latest: https://yaroslavros.github.io/draft-httpbis-h3-unbound-data/draft-rosomakho-httpbis-h3-unbound-data.html
+  github: "yaroslavros/draft-httpbis-h3-unbound-data"
+  latest: "https://yaroslavros.github.io/draft-httpbis-h3-unbound-data/draft-rosomakho-httpbis-h3-unbound-data.html"
 
 author:
  -
