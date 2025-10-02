@@ -19,35 +19,35 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
-category: info
+title: "Unbound DATA Frames in HTTP/3"
+abbrev: "Unbound DATA Frames in HTTP/3"
+category: std
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-rosomakho-httpbis-h3-unbound-data-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Web and Internet Transport"
+workgroup: HTTP
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - http
+ - data
+ - unbound
 venue:
-  group: WG
+  group: HTTP
   type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  mail: ietf-http-wg@w3.org
+  arch: "https://lists.w3.org/Archives/Public/ietf-http-wg/"
+  github: yaroslavros/draft-httpbis-h3-unbound-data
+  latest: https://yaroslavros.github.io/draft-httpbis-h3-unbound-data/draft-rosomakho-httpbis-h3-unbound-data.html
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Yaroslav Rosomakho
+    organization: Zscaler
+    email: yrosomakho@zscaler.com
 
 normative:
 
