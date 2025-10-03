@@ -6,6 +6,7 @@
 <meta content="initial-scale=1.0" name="viewport">
 <title>Unbound DATA Frames in HTTP/3</title>
 <meta content="Yaroslav Rosomakho" name="author">
+<meta content="David Schinazi" name="author">
 <meta content="
        This document defines a new HTTP/3 frame type,  UNBOUND_DATA , and a corresponding  SETTINGS  parameter that enables endpoints to negotiate its use. When an endpoint sends an  UNBOUND_DATA  frame on a request or response stream, it indicates that all subsequent octets on that stream are interpreted as data. This applies both to message body data and to octets transmitted after CONNECT or extended CONNECT. The use of  UNBOUND_DATA  removes the need to encapsulate each portion of the data in  DATA  frames, reducing framing overhead and simplifying transmission of long-lived or indeterminate-length payloads. 
     " name="description">
@@ -1049,7 +1050,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <td class="right">October 2025</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Rosomakho</td>
+<td class="left">Rosomakho &amp; Schinazi</td>
 <td class="center">Expires 6 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
@@ -1069,11 +1070,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
 <dd class="expires"><time datetime="2026-04-06">6 April 2026</time></dd>
-<dt class="label-authors">Author:</dt>
+<dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
       <div class="author-name">Y. Rosomakho</div>
 <div class="org">Zscaler</div>
+</div>
+<div class="author">
+      <div class="author-name">D. Schinazi</div>
+<div class="org">Google LLC</div>
 </div>
 </dd>
 </dl>
@@ -1201,7 +1206,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1557,8 +1562,8 @@ UNBOUND_DATA Frame {
 </div>
 <div id="authors-addresses">
 <section id="appendix-B">
-      <h2 id="name-authors-address">
-<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Yaroslav Rosomakho</span></div>
@@ -1566,6 +1571,14 @@ UNBOUND_DATA Frame {
 <div class="email">
 <span>Email:</span>
 <a href="mailto:yrosomakho@zscaler.com" class="email">yrosomakho@zscaler.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">David Schinazi</span></div>
+<div dir="auto" class="left"><span class="org">Google LLC</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:dschinazi.ietf@gmail.com" class="email">dschinazi.ietf@gmail.com</a>
 </div>
 </address>
 </section>
