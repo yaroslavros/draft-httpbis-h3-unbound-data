@@ -17,10 +17,10 @@ Abstract
    corresponding SETTINGS parameter that enables endpoints to negotiate
    its use.  When an endpoint sends an UNBOUND_DATA frame on a request
    or response stream, it indicates that all subsequent octets on that
-   stream are interpreted as data.  This applies both to message data
-   and to octets transmitted after CONNECT or extended CONNECT.  The use
-   of UNBOUND_DATA removes the need to encapsulate each portion of the
-   data in DATA frames, reducing framing overhead and simplifying
+   stream are interpreted as data.  This applies both to message body
+   data and to octets transmitted after CONNECT or extended CONNECT.
+   The use of UNBOUND_DATA removes the need to encapsulate each portion
+   of the data in DATA frames, reducing framing overhead and simplifying
    transmission of long-lived or indeterminate-length payloads.
 
 About This Document
@@ -165,8 +165,8 @@ Table of Contents
 
    The UNBOUND_DATA frame (type=0x2a937388) is used on request or
    response streams to indicate that all subsequent octets on the stream
-   are interpreted as data.  This data can represent an HTTP message or
-   the data stream (as defined in Section 3.1 of [HTTP-DGRAM]).
+   are interpreted as data.  This data can represent an HTTP message
+   body or the data stream (as defined in Section 3.1 of [HTTP-DGRAM]).
 
 4.1.  Frame Layout
 
