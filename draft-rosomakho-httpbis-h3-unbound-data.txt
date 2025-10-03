@@ -4,9 +4,9 @@
 
 HTTP                                                        Y. Rosomakho
 Internet-Draft                                                   Zscaler
-Intended status: Standards Track                             D. Schinazi
-Expires: 6 April 2026                                         Google LLC
-                                                          3 October 2025
+Updates: 9114 (if approved)                                  D. Schinazi
+Intended status: Standards Track                              Google LLC
+Expires: 6 April 2026                                     3 October 2025
 
 
                      Unbound DATA Frames in HTTP/3
@@ -182,10 +182,10 @@ Table of Contents
    treat this as a connection error of type H3_FRAME_ERROR.
 
    The UNBOUND_DATA frame is only valid on request or response streams.
-   It is invalid on control streams, QPACK encoder/decoder streams, or
-   push streams.  If an endpoint receives an UNBOUND_DATA frame on a
-   stream that isn't a client-initiated bidirectional stream, it MUST
-   treat it as a connection error of type H3_FRAME_UNEXPECTED.
+   It is invalid on unidirectional streams.  If an endpoint receives an
+   UNBOUND_DATA frame on a stream that isn't a client-initiated
+   bidirectional stream, it MUST treat it as a connection error of type
+   H3_FRAME_UNEXPECTED.
 
    Similar to DATA frames, endpoints MUST sent a HEADERS frame before
    sending an UNBOUND_DATA frame on a given stream.  Receipt of an
@@ -206,9 +206,9 @@ Table of Contents
    *  The end of the data is indicated by the QUIC FIN on the stream.
 
    *  If a Content-Length header was included, the recipient needs to
-      ensure that the combined length of all received data (in both DATA
-      and UNBOUND_DATA frames) matches the content length from the
-      header.
+      ensure that the combined length of all received data (inside DATA
+      frames and after the UNBOUND_DATA frame) matches the content
+      length from the header.
 
 5.  Stream State Transitions
 
@@ -344,8 +344,8 @@ Acknowledgments
 
    This specification originated from discussions with Christian Huitema
    and Alan Frindell, whose ideas and feedback helped shape the approach
-   described in this document.  The authors thanks them for their
-   valuable contributions.
+   described in this document.  The authors also thank Lucas Pardue for
+   providing valuable initial feedback.
 
 Authors' Addresses
 
