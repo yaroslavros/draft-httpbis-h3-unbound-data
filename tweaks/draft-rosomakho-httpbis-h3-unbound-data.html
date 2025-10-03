@@ -1316,13 +1316,10 @@ UNBOUND_DATA Frame {
 <p id="section-4.3-1">The use of <code>UNBOUND_DATA</code> is subject to the following restrictions:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.3-2.1">
-            <p id="section-4.3-2.1.1">An endpoint <span class="bcp14">MUST NOT</span> send <code>UNBOUND_DATA</code> if it previously sent a <code>HEADERS</code> frame with a <code>Content-Length</code> header field.<a href="#section-4.3-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-4.3-2.1.1"><code>UNBOUND_DATA</code> frame is only valid on request or response streams. It is invalid on control streams, QPACK encoder/decoder streams, or push streams.<a href="#section-4.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.3-2.2">
-            <p id="section-4.3-2.2.1"><code>UNBOUND_DATA</code> frame is only valid on request or response streams. It is invalid on control streams, QPACK encoder/decoder streams, or push streams.<a href="#section-4.3-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-4.3-2.3">
-            <p id="section-4.3-2.3.1"><code>UNBOUND_DATA</code> <span class="bcp14">MUST NOT</span> be sent to peers that have not advertised <code>SETTINGS_ENABLE_UNBOUND_DATA</code> with a value of 1.<a href="#section-4.3-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-4.3-2.2.1"><code>UNBOUND_DATA</code> <span class="bcp14">MUST NOT</span> be sent to peers that have not advertised <code>SETTINGS_ENABLE_UNBOUND_DATA</code> with a value of 1.<a href="#section-4.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-4.3-3">Any violation of these restrictions <span class="bcp14">MUST</span> be treated as a connection error of type <code>H3_FRAME_UNEXPECTED</code>.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
