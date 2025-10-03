@@ -22,6 +22,7 @@ venue:
   arch: "https://lists.w3.org/Archives/Public/ietf-http-wg/"
   github: "yaroslavros/draft-httpbis-h3-unbound-data"
   latest: "https://yaroslavros.github.io/draft-httpbis-h3-unbound-data/draft-rosomakho-httpbis-h3-unbound-data.html"
+updates: 9114
 
 author:
  -
@@ -95,7 +96,7 @@ UNBOUND_DATA Frame {
 
 The `UNBOUND_DATA` frame has no payload. The Length field of the frame MUST be zero. If a nonzero length is received, the endpoint MUST treat this as a connection error of type `H3_FRAME_ERROR`.
 
-The `UNBOUND_DATA` frame is only valid on request or response streams. It is invalid on control streams, QPACK encoder/decoder streams, or push streams. If an endpoint receives an `UNBOUND_DATA` frame on a stream that isn't a client-initiated bidirectional stream, it MUST treat it as a connection error of type `H3_FRAME_UNEXPECTED`.
+The `UNBOUND_DATA` frame is only valid on request or response streams. It is invalid on unidirectional streams. If an endpoint receives an `UNBOUND_DATA` frame on a stream that isn't a client-initiated bidirectional stream, it MUST treat it as a connection error of type `H3_FRAME_UNEXPECTED`.
 
 Similar to `DATA` frames, endpoints MUST sent a `HEADERS` frame before sending an `UNBOUND_DATA` frame on a given stream. Receipt of an `UNBOUND_DATA` frame on a stream that hasn't received a `HEADERS` frame MUST be treated as a connection error of type `H3_FRAME_UNEXPECTED`.
 
@@ -106,7 +107,7 @@ Upon receiving an `UNBOUND_DATA` frame on a request or response stream, the rece
 - All remaining octets on the stream, up to the QUIC FIN, are interpreted as data.
 - No further HTTP/3 frames (including `DATA`, `HEADERS`, or any extension frames) can be received on the stream.
 - The end of the data is indicated by the QUIC FIN on the stream.
-- If a `Content-Length` header was included, the recipient needs to ensure that the combined length of all received data (in both `DATA` and `UNBOUND_DATA` frames) matches the content length from the header.
+- If a `Content-Length` header was included, the recipient needs to ensure that the combined length of all received data (inside `DATA` frames and after the `UNBOUND_DATA` frame) matches the content length from the header.
 
 # Stream State Transitions
 
@@ -178,4 +179,4 @@ This specification registers the following entry in the "HTTP/3 Frame Types" reg
 # Acknowledgments
 {:numbered="false"}
 
-This specification originated from discussions with Christian Huitema and Alan Frindell, whose ideas and feedback helped shape the approach described in this document. The authors thanks them for their valuable contributions.
+This specification originated from discussions with Christian Huitema and Alan Frindell, whose ideas and feedback helped shape the approach described in this document. The authors also thank Lucas Pardue for providing valuable initial feedback.
