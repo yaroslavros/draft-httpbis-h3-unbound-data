@@ -28,6 +28,11 @@ author:
     fullname: Yaroslav Rosomakho
     organization: Zscaler
     email: yrosomakho@zscaler.com
+ -
+    ins: D. Schinazi
+    name: David Schinazi
+    organization: Google LLC
+    email: dschinazi.ietf@gmail.com
 
 normative:
   H3:
