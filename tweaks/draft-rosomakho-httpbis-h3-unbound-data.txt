@@ -167,7 +167,7 @@ Table of Contents
    The UNBOUND_DATA frame (type=0x2a937388) is used on request or
    response streams to indicate that all subsequent octets on the stream
    are interpreted as data.  This data can represent an HTTP message
-   body or the data stream (as defined in Section 3.1 of [HTTP-DGRAM]).
+   body or the data stream as defined in Section 3.1 of [HTTP-DGRAM].
 
 4.1.  Frame Layout
 
