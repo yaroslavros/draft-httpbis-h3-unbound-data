@@ -95,6 +95,10 @@ UNBOUND_DATA Frame {
 
 The `UNBOUND_DATA` frame has no payload. The Length field of the frame MUST be zero. If a nonzero length is received, the endpoint MUST treat this as a connection error of type `H3_FRAME_ERROR`.
 
+The `UNBOUND_DATA` frame is only valid on request or response streams. It is invalid on control streams, QPACK encoder/decoder streams, or push streams. If an endpoint receives an `UNBOUND_DATA` frame on a stream that isn't a client-initiated bidirectional stream, it MUST treat it as a connection error of type `H3_FRAME_UNEXPECTED`.
+
+Similar to `DATA` frames, endpoints MUST sent a `HEADERS` frame before sending an `UNBOUND_DATA` frame on a given stream. Receipt of an `UNBOUND_DATA` frame on a stream that hasn't received a `HEADERS` frame MUST be treated as a connection error of type `H3_FRAME_UNEXPECTED`.
+
 ## Semantics
 
 Upon receiving an `UNBOUND_DATA` frame on a request or response stream, the receiver enters unbound mode for that stream. In unbound mode:
@@ -103,15 +107,6 @@ Upon receiving an `UNBOUND_DATA` frame on a request or response stream, the rece
 - No further HTTP/3 frames (including `DATA`, `HEADERS`, or any extension frames) can be received on the stream.
 - The end of the data is indicated by the QUIC FIN on the stream.
 - If a `Content-Length` header was included, the recipient needs to ensure that the combined length of all received data (in both `DATA` and `UNBOUND_DATA` frames) matches the content length from the header.
-
-## Restrictions
-
-The use of `UNBOUND_DATA` is subject to the following restrictions:
-
-- `UNBOUND_DATA` frame is only valid on request or response streams. It is invalid on control streams, QPACK encoder/decoder streams, or push streams.
-- `UNBOUND_DATA` MUST NOT be sent to peers that have not advertised `SETTINGS_ENABLE_UNBOUND_DATA` with a value of 1.
-
-Any violation of these restrictions MUST be treated as a connection error of type `H3_FRAME_UNEXPECTED`.
 
 # Stream State Transitions
 
