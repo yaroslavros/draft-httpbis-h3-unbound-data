@@ -22,7 +22,6 @@ venue:
   arch: "https://lists.w3.org/Archives/Public/ietf-http-wg/"
   github: "yaroslavros/draft-httpbis-h3-unbound-data"
   latest: "https://yaroslavros.github.io/draft-httpbis-h3-unbound-data/draft-rosomakho-httpbis-h3-unbound-data.html"
-updates: 9114
 
 author:
  -
