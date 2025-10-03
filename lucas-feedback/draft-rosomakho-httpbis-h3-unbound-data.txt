@@ -4,9 +4,9 @@
 
 HTTP                                                        Y. Rosomakho
 Internet-Draft                                                   Zscaler
-Updates: 9114 (if approved)                                  D. Schinazi
-Intended status: Standards Track                              Google LLC
-Expires: 6 April 2026                                     3 October 2025
+Intended status: Standards Track                             D. Schinazi
+Expires: 6 April 2026                                         Google LLC
+                                                          3 October 2025
 
 
                      Unbound DATA Frames in HTTP/3
