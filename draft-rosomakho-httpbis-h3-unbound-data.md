@@ -96,7 +96,7 @@ UNBOUND_DATA Frame {
 
 The `UNBOUND_DATA` frame has no payload. The Length field of the frame MUST be zero. If a nonzero length is received, the endpoint MUST treat this as a connection error of type `H3_FRAME_ERROR`.
 
-The `UNBOUND_DATA` frame is only valid on request or response streams. It is invalid on unidirectional streams. If an endpoint receives an `UNBOUND_DATA` frame on a stream that isn't a client-initiated bidirectional stream, it MUST treat it as a connection error of type `H3_FRAME_UNEXPECTED`.
+The `UNBOUND_DATA` frame is only valid on request or response streams. If an endpoint receives an `UNBOUND_DATA` frame on a stream that isn't a client-initiated bidirectional stream, it MUST treat it as a connection error of type `H3_FRAME_UNEXPECTED`.
 
 Similar to `DATA` frames, endpoints MUST sent a `HEADERS` frame before sending an `UNBOUND_DATA` frame on a given stream. Receipt of an `UNBOUND_DATA` frame on a stream that hasn't received a `HEADERS` frame MUST be treated as a connection error of type `H3_FRAME_UNEXPECTED`.
 
