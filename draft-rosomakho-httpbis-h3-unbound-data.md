@@ -108,7 +108,6 @@ Upon receiving an `UNBOUND_DATA` frame on a request or response stream, the rece
 
 The use of `UNBOUND_DATA` is subject to the following restrictions:
 
-- An endpoint MUST NOT send `UNBOUND_DATA` if it previously sent a `HEADERS` frame with a `Content-Length` header field.
 - `UNBOUND_DATA` frame is only valid on request or response streams. It is invalid on control streams, QPACK encoder/decoder streams, or push streams.
 - `UNBOUND_DATA` MUST NOT be sent to peers that have not advertised `SETTINGS_ENABLE_UNBOUND_DATA` with a value of 1.
 
