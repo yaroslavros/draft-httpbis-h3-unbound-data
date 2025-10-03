@@ -81,7 +81,7 @@ The `SETTINGS_ENABLE_UNBOUND_DATA` parameter is directional: each endpoint indep
 
 # UNBOUND_DATA Frame
 
-The `UNBOUND_DATA` frame (type=0x2a937388) is used on request or response streams to indicate that all subsequent octets on the stream are interpreted as data. This data can represent an HTTP message body or the data stream (as defined in {{Section 3.1 of !HTTP-DGRAM=RFC9297}}).
+The `UNBOUND_DATA` frame (type=0x2a937388) is used on request or response streams to indicate that all subsequent octets on the stream are interpreted as data. This data can represent an HTTP message body or the data stream as defined in {{Section 3.1 of !HTTP-DGRAM=RFC9297}}.
 
 ## Frame Layout
 
