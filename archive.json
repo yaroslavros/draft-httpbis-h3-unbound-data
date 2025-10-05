@@ -1,0 +1,304 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2025-10-05T01:36:27.461756+00:00",
+  "repo": "yaroslavros/draft-httpbis-h3-unbound-data",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOP7SNWc6r_660",
+      "title": "Tweaks",
+      "url": "https://github.com/yaroslavros/draft-httpbis-h3-unbound-data/pull/1",
+      "state": "MERGED",
+      "author": "DavidSchinazi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "A few changes:\r\n* I changed the wording to move away from \"forbid\" / \"permit\" frames after UNBOUND_DATA - because it's not disallowed, it's just not possible to send them since they won't be parsed as frames\r\n* Allowed content-length to match DATA frames\r\n* Randomly generated the TBD values using [quic-pick](https://martinthomson.github.io/quic-pick/) so we can implement",
+      "createdAt": "2025-10-03T17:23:12Z",
+      "updatedAt": "2025-10-03T18:16:47Z",
+      "baseRepository": "yaroslavros/draft-httpbis-h3-unbound-data",
+      "baseRefName": "main",
+      "baseRefOid": "6aaff3fca0c99e27b4c5957cc8a6516e9e4226a2",
+      "headRepository": "yaroslavros/draft-httpbis-h3-unbound-data",
+      "headRefName": "tweaks",
+      "headRefOid": "fb8805a98553ac601c134a249f9e5be7dd69b674",
+      "closedAt": "2025-10-03T18:16:47Z",
+      "mergedAt": "2025-10-03T18:16:47Z",
+      "mergedBy": "yaroslavros",
+      "mergeCommit": {
+        "oid": "0425c18b8eecd23047f305b176903f8ee7df121a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOP7SNWc7Es0iD",
+          "commit": {
+            "abbreviatedOid": "e766260"
+          },
+          "author": "yaroslavros",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "Looks good!",
+          "createdAt": "2025-10-03T17:26:00Z",
+          "updatedAt": "2025-10-03T17:30:38Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "```suggestion\r\nThe `UNBOUND_DATA` frame (type=0x2a937388) is used on request or response streams to indicate that all subsequent octets on the stream are interpreted as data. This data can represent an HTTP message body or the data stream as defined in {{Section 3.1 of !HTTP-DGRAM=RFC9297}}.\r\n```\r\n\r\nI don't think parenthesis are needed here",
+              "createdAt": "2025-10-03T17:26:00Z",
+              "updatedAt": "2025-10-03T17:30:38Z"
+            },
+            {
+              "originalPosition": 65,
+              "body": "I thought `HEADERS` at the beginning of a HTTP/3 stream are mandatory... am I missing something?",
+              "createdAt": "2025-10-03T17:28:18Z",
+              "updatedAt": "2025-10-03T17:30:38Z"
+            },
+            {
+              "originalPosition": 62,
+              "body": "I suppose this needs to be removed",
+              "createdAt": "2025-10-03T17:28:43Z",
+              "updatedAt": "2025-10-03T17:30:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOP7SNWc7Es8aJ",
+          "commit": {
+            "abbreviatedOid": "592c857"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-03T17:34:09Z",
+          "updatedAt": "2025-10-03T17:34:10Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "Done",
+              "createdAt": "2025-10-03T17:34:09Z",
+              "updatedAt": "2025-10-03T17:34:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOP7SNWc7Es9Ul",
+          "commit": {
+            "abbreviatedOid": "592c857"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-03T17:34:54Z",
+          "updatedAt": "2025-10-03T17:34:54Z",
+          "comments": [
+            {
+              "originalPosition": 65,
+              "body": "They are, but we don't need to repeat that here. Sending UNBOUND_DATA before HEADERS isn't _forbidden_, it's _impossible_",
+              "createdAt": "2025-10-03T17:34:54Z",
+              "updatedAt": "2025-10-03T17:34:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOP7SNWc7Es_3Z",
+          "commit": {
+            "abbreviatedOid": "e766260"
+          },
+          "author": "yaroslavros",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-03T17:37:40Z",
+          "updatedAt": "2025-10-03T17:37:40Z",
+          "comments": [
+            {
+              "originalPosition": 65,
+              "body": "But it is technically possible to send `UNBOUND_DATA` right at the beginning of the stream without `HEADERS` frame. I don't think such behaviour would be valid.",
+              "createdAt": "2025-10-03T17:37:40Z",
+              "updatedAt": "2025-10-03T17:37:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOP7SNWc7EtNCG",
+          "commit": {
+            "abbreviatedOid": "e766260"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-03T17:49:17Z",
+          "updatedAt": "2025-10-03T17:49:17Z",
+          "comments": [
+            {
+              "originalPosition": 65,
+              "body": "I've added this back, with a slightly different wording. Also refactored the restrictions section into the frame definition since the mention of settings was duplicative",
+              "createdAt": "2025-10-03T17:49:17Z",
+              "updatedAt": "2025-10-03T17:49:17Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOP7SNWc6sCZCn",
+      "title": "Addressed feedback from Lucas",
+      "url": "https://github.com/yaroslavros/draft-httpbis-h3-unbound-data/pull/2",
+      "state": "MERGED",
+      "author": "yaroslavros",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "- Added \"Updates 9114\"\r\n- Aggregated all unidirectional streams so we don't need to worry which ones are frame based\r\n- Clarified how to calculate bytes for Content-Length",
+      "createdAt": "2025-10-03T21:45:03Z",
+      "updatedAt": "2025-10-03T21:59:33Z",
+      "baseRepository": "yaroslavros/draft-httpbis-h3-unbound-data",
+      "baseRefName": "main",
+      "baseRefOid": "ed9c8a907a704c0511b760a2835c19a199d16b8a",
+      "headRepository": "yaroslavros/draft-httpbis-h3-unbound-data",
+      "headRefName": "lucas-feedback",
+      "headRefOid": "4ee1a606816d7a071b40c5bc3b4f7cffadf73658",
+      "closedAt": "2025-10-03T21:59:33Z",
+      "mergedAt": "2025-10-03T21:59:33Z",
+      "mergedBy": "yaroslavros",
+      "mergeCommit": {
+        "oid": "e5f429956585fba8b177be6386d6485175bcf440"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOP7SNWc7EwrxU",
+          "commit": {
+            "abbreviatedOid": "9f5417b"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-03T21:49:57Z",
+          "updatedAt": "2025-10-03T21:51:37Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Extensions to HTTP/3 don't need to update 9114. 9297 is an example",
+              "createdAt": "2025-10-03T21:49:57Z",
+              "updatedAt": "2025-10-03T21:51:37Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "UNBOUND_DATA is also invalid on server-initiated bidirectional streams. I would just remove the sentence\n\n```suggestion\nThe `UNBOUND_DATA` frame is only valid on request or response streams. If an endpoint receives an `UNBOUND_DATA` frame on a stream that isn't a client-initiated bidirectional stream, it MUST treat it as a connection error of type `H3_FRAME_UNEXPECTED`.\n```",
+              "createdAt": "2025-10-03T21:51:07Z",
+              "updatedAt": "2025-10-03T21:51:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOP7SNWc7Ewufp",
+          "commit": {
+            "abbreviatedOid": "9f5417b"
+          },
+          "author": "yaroslavros",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-03T21:56:37Z",
+          "updatedAt": "2025-10-03T21:56:37Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "9114 says\r\n\r\n> Once the CONNECT method has completed, only [DATA](https://datatracker.ietf.org/doc/html/rfc9114#frame-data) frames are permitted to be sent on the stream. Extension frames MAY be used if specifically permitted by the definition of the extension.\r\n\r\nI suppose the second sentence applies to UNBOUND_DATA proposal. I'll remove the \"updates\".",
+              "createdAt": "2025-10-03T21:56:37Z",
+              "updatedAt": "2025-10-03T21:56:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOP7SNWc7EwvrP",
+          "commit": {
+            "abbreviatedOid": "9f5417b"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-03T21:58:34Z",
+          "updatedAt": "2025-10-03T21:58:34Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "\"RFC X Updates RFC Y\" means \"if you implement Y you need to read X\" - even if an extension changes the base protocol, as long as it's optional you don't need the Updates tag",
+              "createdAt": "2025-10-03T21:58:34Z",
+              "updatedAt": "2025-10-03T21:58:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOP7SNWc7Ewv5_",
+          "commit": {
+            "abbreviatedOid": "4ee1a60"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-03T21:58:51Z",
+          "updatedAt": "2025-10-03T21:58:51Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
