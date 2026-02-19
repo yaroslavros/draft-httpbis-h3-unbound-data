@@ -5,24 +5,24 @@
 HTTP                                                        Y. Rosomakho
 Internet-Draft                                                   Zscaler
 Intended status: Standards Track                             D. Schinazi
-Expires: 6 April 2026                                         Google LLC
-                                                          3 October 2025
+Expires: 23 August 2026                                       Google LLC
+                                                        19 February 2026
 
 
-                     Unbound DATA Frames in HTTP/3
+                   Unbound DATA for CONNECT in HTTP/3
              draft-rosomakho-httpbis-h3-unbound-data-latest
 
 Abstract
 
    This document defines a new HTTP/3 frame type, UNBOUND_DATA, and a
    corresponding SETTINGS parameter that enables endpoints to negotiate
-   its use.  When an endpoint sends an UNBOUND_DATA frame on a request
-   or response stream, it indicates that all subsequent octets on that
-   stream are interpreted as data.  This applies both to message body
-   data and to octets transmitted after CONNECT or extended CONNECT.
-   The use of UNBOUND_DATA removes the need to encapsulate each portion
-   of the data in DATA frames, reducing framing overhead and simplifying
-   transmission of long-lived or indeterminate-length payloads.
+   its use.  When an endpoint sends an UNBOUND_DATA frame on a CONNECT
+   request or response stream, it indicates that all subsequent octets
+   on that stream are interpreted as tunneled bytes.  This applies both
+   to octets transmitted after CONNECT or extended CONNECT.  The use of
+   UNBOUND_DATA removes the need to encapsulate each portion of the data
+   in DATA frames, reducing framing overhead and simplifying
+   transmission of long-lived CONNECT tunnels.
 
 About This Document
 
@@ -56,11 +56,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 April 2026.
+   This Internet-Draft will expire on 23 August 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -96,35 +96,45 @@ Table of Contents
    [HTTP/3] transmits message content on client-initiated bidirectional
    QUIC streams.  On these streams, the request and response messages
    are carried using a sequence of HTTP/3 frames.  The DATA frame is
-   used to encapsulate octets of a message body, or the opaque data
-   associated with CONNECT and its extensions.
+   used to encapsulate octets of the opaque data associated with CONNECT
+   and its extensions.
 
-   When the size of the body is unknown in advance, or when data is
-   generated incrementally such as media streaming, [WebSockets],
-   [WebTransport], or other tunneled protocols using CONNECT and its
-   extensions, senders typically generate many DATA frames.  Although
-   DATA frames are lightweight, each adds framing overhead and requires
-   the sender to manage frame boundaries.  For long-lived or high-volume
-   streams, this overhead is unnecessary because the end of the QUIC
-   stream already provides a natural message boundary.
+   CONNECT and extended CONNECT establish long-lived bidirectional
+   tunnels.  These tunnels commonly carry transport protocols (TCP
+   [CONNECT-TCP], UDP [CONNECT-UDP], IP [CONNECT-IP], Ethernet
+   [CONNECT-ETHERNET], [WebSockets], [WebTransport]) that produce
+   arbitrarily fragmented and continuous byte streams.  Senders
+   therefore generate large numbers of DATA frames whose boundaries have
+   no semantic meaning.  Although DATA frames are lightweight, each adds
+   framing overhead and requires the sender to manage frame boundaries.
+   For long-lived or high-volume streams, this overhead is unnecessary
+   because the end of the QUIC stream already provides a natural message
+   boundary.
+
+   According to Section 4.4 of [HTTP/3], once HTTP/3 CONNECT tunnel is
+   established, the stream carries opaque bytes until the QUIC FIN.
+   CONNECT streams do not carry trailers and no additional HTTP frames
+   are defined after tunnel establishment.  Therefore, ceasing frame
+   parsing after UNBOUND_DATA does not change HTTP semantics and only
+   removes framing overhead.
 
    This document defines a new HTTP/3 frame type, UNBOUND_DATA, and a
    corresponding SETTINGS parameter that endpoints use to negotiate
-   support.  Once an UNBOUND_DATA frame is sent on a request or response
-   stream, all subsequent octets on that stream are interpreted as data.
-   This mechanism eliminates the need to encapsulate each portion of the
-   body in separate DATA frames.
+   support.  Once an UNBOUND_DATA frame is sent on a CONNECT stream, all
+   subsequent octets on that stream are interpreted as data.  This
+   mechanism eliminates the need to encapsulate each portion of the
+   tunnel payload in separate DATA frames.
 
    The goals of UNBOUND_DATA are:
 
-   *  Reduce framing overhead for large or indeterminate-length message
-      bodies.
+   *  Reduce framing overhead for CONNECT tunnels carrying continuous
+      byte streams.
 
    *  Simplify sender and receiver state machines by eliminating
       repeated DATA frame headers.
 
-   *  Enable efficient transport of long-lived data flows such as
-      streaming APIs, media delivery, or tunneled protocols.
+   *  Enable efficient transport of tunneled protocols carried over
+      CONNECT streams.
 
    The use of UNBOUND_DATA does not alter HTTP semantics, flow control,
    or prioritization; it is strictly a framing optimization.
@@ -163,10 +173,9 @@ Table of Contents
 
 4.  UNBOUND_DATA Frame
 
-   The UNBOUND_DATA frame (type=0x2a937388) is used on request or
-   response streams to indicate that all subsequent octets on the stream
-   are interpreted as data.  This data can represent an HTTP message
-   body or the data stream as defined in Section 3.1 of [HTTP-DGRAM].
+   The UNBOUND_DATA frame (type=0x2a937388) is used on CONNECT streams
+   to indicate that all subsequent octets on the stream are interpreted
+   as data.
 
 4.1.  Frame Layout
 
@@ -181,20 +190,20 @@ Table of Contents
    MUST be zero.  If a nonzero length is received, the endpoint MUST
    treat this as a connection error of type H3_FRAME_ERROR.
 
-   The UNBOUND_DATA frame is only valid on request or response streams.
-   If an endpoint receives an UNBOUND_DATA frame on a stream that isn't
-   a client-initiated bidirectional stream, it MUST treat it as a
-   connection error of type H3_FRAME_UNEXPECTED.
+   The UNBOUND_DATA frame is only valid on CONNECT streams.  If an
+   endpoint receives an UNBOUND_DATA frame on a stream that is not a
+   CONNECT stream, it MUST treat it as a connection error of type
+   H3_FRAME_UNEXPECTED.
 
-   Similar to DATA frames, endpoints MUST sent a HEADERS frame before
+   Similar to DATA frames, endpoints MUST send a HEADERS frame before
    sending an UNBOUND_DATA frame on a given stream.  Receipt of an
    UNBOUND_DATA frame on a stream that hasn't received a HEADERS frame
    MUST be treated as a connection error of type H3_FRAME_UNEXPECTED.
 
 4.2.  Semantics
 
-   Upon receiving an UNBOUND_DATA frame on a request or response stream,
-   the receiver enters unbound mode for that stream.  In unbound mode:
+   Upon receiving an UNBOUND_DATA frame on a CONNECT stream, the
+   receiver enters unbound mode for that stream.  In unbound mode:
 
    *  All remaining octets on the stream, up to the QUIC FIN, are
       interpreted as data.
@@ -204,35 +213,33 @@ Table of Contents
 
    *  The end of the data is indicated by the QUIC FIN on the stream.
 
-   *  If a Content-Length header was included, the recipient needs to
-      ensure that the combined length of all received data (inside DATA
-      frames and after the UNBOUND_DATA frame) matches the content
-      length from the header.
+   Unbound mode is direction-specific: receipt of UNBOUND_DATA only
+   affects the interpretation of octets received in that direction of
+   the stream.  Each endpoint can independently send UNBOUND_DATA to
+   indicate unbound mode for its sending direction.
 
 5.  Stream State Transitions
 
    The use of the UNBOUND_DATA frame modifies the sequence of frames
    exchanged on request and response streams.
 
-   In normal operation, a request or response body is carried as a
-   sequence of one or more DATA frames, followed optionally by a HEADERS
-   frame containing trailers:
+   In normal operation, a CONNECT request or response is carried as a
+   sequence of one or more DATA frames:
 
      New bi-direcitonal QUIC stream ---->  +------------------------+
                                            | HEADERS (headers)      |
                                            +------------------------+
                                            | [ DATA ... ]           |
-                                           +------------------------+
-                                           | [ HEADERS (trailers) ] |
                            QUIC FIN ---->  +------------------------+
 
-      Figure 2: Regular HTTP/3 Frame sequence on bi-directional stream
+     Figure 2: Regular HTTP/3 CONNECT frame sequence on bi-directional
+                                   stream
 
    When UNBOUND_DATA is used, the sender signals that all subsequent
    octets on the stream are data.  Regular DATA frames MAY be sent on a
    stream prior to the UNBOUND_DATA.  After the UNBOUND_DATA frame, the
    sender cannot send any further HTTP/3 frames on the stream.  The end
-   of the body is signaled by the QUIC stream FIN:
+   of the tunnel is signaled by the QUIC stream FIN:
 
      New bi-directional QUIC stream ---->  +------------------------+
                                            | HEADERS (headers)      |
@@ -246,17 +253,11 @@ Table of Contents
 
              Figure 3: HTTP/3 Frame sequence with UNBOUND_DATA
 
-   Since the recipient of an UNBOUND_DATA will no longer parse frame
-   types on the stream after its receipt, it is not possible to send
-   other frames after the UNBOUND_DATA.  If that is required, for
-   example if the sender wishes to send trailers, then the UNBOUND_DATA
-   frame cannot be used.
-
 6.  Security Considerations
 
    The introduction of UNBOUND_DATA does not alter the security
-   properties of HTTP/3 or QUIC.  It only changes how message bodies or
-   tunneled octets are framed on request and response streams.
+   properties of HTTP/3 or QUIC.  It only changes how the CONNECT
+   payload is framed on request and response streams.
 
 7.  IANA Considerations
 
@@ -308,11 +309,6 @@ Table of Contents
 
 8.1.  Normative References
 
-   [HTTP-DGRAM]
-              Schinazi, D. and L. Pardue, "HTTP Datagrams and the
-              Capsule Protocol", RFC 9297, DOI 10.17487/RFC9297, August
-              2022, <https://www.rfc-editor.org/rfc/rfc9297>.
-
    [HTTP/3]   Bishop, M., Ed., "HTTP/3", RFC 9114, DOI 10.17487/RFC9114,
               June 2022, <https://www.rfc-editor.org/rfc/rfc9114>.
 
@@ -327,6 +323,30 @@ Table of Contents
 
 8.2.  Informative References
 
+   [CONNECT-ETHERNET]
+              Sedeño, A., "Proxying Ethernet in HTTP", Work in Progress,
+              Internet-Draft, draft-ietf-masque-connect-ethernet-08, 10
+              October 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-masque-connect-ethernet-08>.
+
+   [CONNECT-IP]
+              Pauly, T., Ed., Schinazi, D., Chernyakhovsky, A.,
+              Kühlewind, M., and M. Westerlund, "Proxying IP in HTTP",
+              RFC 9484, DOI 10.17487/RFC9484, October 2023,
+              <https://www.rfc-editor.org/rfc/rfc9484>.
+
+   [CONNECT-TCP]
+              Schwartz, B. M., "Template-Driven HTTP CONNECT Proxying
+              for TCP", Work in Progress, Internet-Draft, draft-ietf-
+              httpbis-connect-tcp-10, 5 December 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
+              connect-tcp-10>.
+
+   [CONNECT-UDP]
+              Schinazi, D., "Proxying UDP in HTTP", RFC 9298,
+              DOI 10.17487/RFC9298, August 2022,
+              <https://www.rfc-editor.org/rfc/rfc9298>.
+
    [WebSockets]
               Hamilton, R., "Bootstrapping WebSockets with HTTP/3",
               RFC 9220, DOI 10.17487/RFC9220, June 2022,
@@ -335,9 +355,9 @@ Table of Contents
    [WebTransport]
               Frindell, A., Kinnear, E., and V. Vasiliev, "WebTransport
               over HTTP/3", Work in Progress, Internet-Draft, draft-
-              ietf-webtrans-http3-13, 7 July 2025,
+              ietf-webtrans-http3-14, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-
-              webtrans-http3-13>.
+              webtrans-http3-14>.
 
 Acknowledgments
 
