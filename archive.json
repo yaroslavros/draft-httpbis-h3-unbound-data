@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-19T02:08:58.218252+00:00",
+  "timestamp": "2026-02-22T02:09:03.782245+00:00",
   "repo": "yaroslavros/draft-httpbis-h3-unbound-data",
   "labels": [
     {
@@ -296,6 +296,48 @@
           "body": "",
           "createdAt": "2025-10-03T21:58:51Z",
           "updatedAt": "2025-10-03T21:58:51Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOP7SNWc7E9YPc",
+      "title": "Limited spec to CONNECT",
+      "url": "https://github.com/yaroslavros/draft-httpbis-h3-unbound-data/pull/3",
+      "state": "MERGED",
+      "author": "yaroslavros",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-02-19T18:46:45Z",
+      "updatedAt": "2026-02-19T23:40:46Z",
+      "baseRepository": "yaroslavros/draft-httpbis-h3-unbound-data",
+      "baseRefName": "main",
+      "baseRefOid": "e5f429956585fba8b177be6386d6485175bcf440",
+      "headRepository": "yaroslavros/draft-httpbis-h3-unbound-data",
+      "headRefName": "connect-only",
+      "headRefOid": "9d9e65a12ca7fdf73e87308990da036f0a1da1a4",
+      "closedAt": "2026-02-19T23:40:46Z",
+      "mergedAt": "2026-02-19T23:40:46Z",
+      "mergedBy": "yaroslavros",
+      "mergeCommit": {
+        "oid": "7fec1892e16ac4cd7218cf368d08a2984e772ff2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOP7SNWc7kOcp4",
+          "commit": {
+            "abbreviatedOid": "9d9e65a"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Nice! Ship it!",
+          "createdAt": "2026-02-19T23:07:23Z",
+          "updatedAt": "2026-02-19T23:07:23Z",
           "comments": []
         }
       ]
