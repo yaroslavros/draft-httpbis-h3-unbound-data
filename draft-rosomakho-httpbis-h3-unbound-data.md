@@ -151,7 +151,7 @@ The introduction of `UNBOUND_DATA` does not alter the security properties of HTT
 
 This specification registers the following entry in the "HTTP/3 Settings" registry defined in {{H3}}:
 
-- Code: 0x282cf6bb
+- Value: 0x282cf6bb
 - Setting Name: SETTINGS_ENABLE_UNBOUND_DATA
 - Default: 0
 - Status: provisional (permanent if this document is approved)
