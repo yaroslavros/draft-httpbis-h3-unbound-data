@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-26T02:04:18.514254+00:00",
+  "timestamp": "2026-03-01T02:22:44.358066+00:00",
   "repo": "yaroslavros/draft-httpbis-h3-unbound-data",
   "labels": [
     {
@@ -347,24 +347,26 @@
       "id": "PR_kwDOP7SNWc7Fhg4A",
       "title": "Address IANA early review feedback",
       "url": "https://github.com/yaroslavros/draft-httpbis-h3-unbound-data/pull/4",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "yaroslavros",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-02-23T00:13:09Z",
-      "updatedAt": "2026-02-23T20:40:57Z",
+      "updatedAt": "2026-02-27T14:17:38Z",
       "baseRepository": "yaroslavros/draft-httpbis-h3-unbound-data",
       "baseRefName": "main",
       "baseRefOid": "7fec1892e16ac4cd7218cf368d08a2984e772ff2",
       "headRepository": "yaroslavros/draft-httpbis-h3-unbound-data",
       "headRefName": "iana-nit",
       "headRefOid": "020fd9d6e500b0aaf8e294db80e00cfc62c72412",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-02-27T14:17:38Z",
+      "mergedAt": "2026-02-27T14:17:38Z",
+      "mergedBy": "yaroslavros",
+      "mergeCommit": {
+        "oid": "b1a9c09f40869bd94d6706a02661c129f4a3cccf"
+      },
       "comments": [],
       "reviews": [
         {
