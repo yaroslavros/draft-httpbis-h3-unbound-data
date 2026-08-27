@@ -5,8 +5,8 @@
 HTTP                                                        Y. Rosomakho
 Internet-Draft                                                   Zscaler
 Intended status: Standards Track                             D. Schinazi
-Expires: 31 August 2026                                       Google LLC
-                                                        27 February 2026
+Expires: 28 February 2027                                     Google LLC
+                                                          27 August 2026
 
 
                    Unbound DATA for CONNECT in HTTP/3
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 August 2026.
+   This Internet-Draft will expire on 28 February 2027.
 
 Copyright Notice
 
@@ -324,10 +324,11 @@ Table of Contents
 8.2.  Informative References
 
    [CONNECT-ETHERNET]
-              Sedeño, A., "Proxying Ethernet in HTTP", Work in Progress,
-              Internet-Draft, draft-ietf-masque-connect-ethernet-08, 10
-              October 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-masque-connect-ethernet-08>.
+              Sedeño, A., "Proxying Ethernet Frames in HTTP", Work in
+              Progress, Internet-Draft, draft-ietf-masque-connect-
+              ethernet-14, 18 August 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
+              connect-ethernet-14>.
 
    [CONNECT-IP]
               Pauly, T., Ed., Schinazi, D., Chernyakhovsky, A.,
@@ -338,9 +339,9 @@ Table of Contents
    [CONNECT-TCP]
               Schwartz, B. M., "Template-Driven HTTP CONNECT Proxying
               for TCP", Work in Progress, Internet-Draft, draft-ietf-
-              httpbis-connect-tcp-10, 5 December 2025,
+              httpbis-connect-tcp-13, 17 August 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              connect-tcp-10>.
+              connect-tcp-13>.
 
    [CONNECT-UDP]
               Schinazi, D., "Proxying UDP in HTTP", RFC 9298,
@@ -355,9 +356,9 @@ Table of Contents
    [WebTransport]
               Frindell, A., Kinnear, E., and V. Vasiliev, "WebTransport
               over HTTP/3", Work in Progress, Internet-Draft, draft-
-              ietf-webtrans-http3-14, 20 October 2025,
+              ietf-webtrans-http3-16, 6 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-
-              webtrans-http3-14>.
+              webtrans-http3-16>.
 
 Acknowledgments
 
